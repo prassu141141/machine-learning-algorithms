@@ -1,0 +1,35 @@
+import pandas as pd
+data=pd.read_csv(r'C:\Users\Saiprasanna\Desktop\iris.csv')
+                 # raw data
+#print(data.head())
+#print(data.tail())
+# understanding data given
+
+#print(data.shape)
+#print(data.columns)
+#print(data['sl'])
+#print(data['class'])
+#print(data['class'].unique())
+#print(data['class'].value_counts())
+
+# pre processing :
+x=data.iloc[:,:-1].values # dependent variable(sl,sw,pl,pw)
+y=data.iloc[:,-1].values# target variable(class)
+
+from sklearn.model_selection import train_test_split
+xtrain,xtest,ytrain,ytest=train_test_split(x,y,random_state=3,test_size=0.20)
+
+from sklearn.neighbors import KNeighborsClassifier
+model=KNeighborsClassifier(n_neighbors=3)
+# train algorithm
+model.fit(xtrain,ytrain)
+# accuracy checking
+ypred=model.predict(xtest)
+print(ypred)
+
+from sklearn.metrics import accuracy_score
+print(accuracy_score(ytest,ypred)*100)
+
+
+
+
